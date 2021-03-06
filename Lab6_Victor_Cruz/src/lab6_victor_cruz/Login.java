@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
@@ -145,7 +146,9 @@ public class Login extends javax.swing.JFrame {
         Reporte = new javax.swing.JDialog();
         InfoClientes = new javax.swing.JDialog();
         InfoCarros = new javax.swing.JDialog();
-        CrearCarro13 = new javax.swing.JDialog();
+        JB_VerCarro = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        JTA_CarroVer = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         JTF_UserName = new javax.swing.JTextField();
@@ -188,12 +191,27 @@ public class Login extends javax.swing.JFrame {
         jMenu4.setText("Clientes");
 
         jMenuItem6.setText("Crear");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem6);
 
         jMenuItem8.setText("Modificar/Eliminar");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem8);
 
         jMenuItem9.setText("Listar");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem9);
 
         jMenuItem10.setText("Ver Carros Comprados");
@@ -205,12 +223,27 @@ public class Login extends javax.swing.JFrame {
         JM_Admin.setEnabled(false);
 
         jMenuItem11.setText("Reporte");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         JM_Admin.add(jMenuItem11);
 
         jMenuItem12.setText("Info Clientes");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         JM_Admin.add(jMenuItem12);
 
         jMenuItem13.setText("Info Autos");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         JM_Admin.add(jMenuItem13);
 
         jMenuBar2.add(JM_Admin);
@@ -871,26 +904,39 @@ public class Login extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        JB_VerCarro.setText("Ver");
+        JB_VerCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_VerCarroActionPerformed(evt);
+            }
+        });
+
+        JTA_CarroVer.setColumns(20);
+        JTA_CarroVer.setRows(5);
+        jScrollPane3.setViewportView(JTA_CarroVer);
+
         javax.swing.GroupLayout InfoCarrosLayout = new javax.swing.GroupLayout(InfoCarros.getContentPane());
         InfoCarros.getContentPane().setLayout(InfoCarrosLayout);
         InfoCarrosLayout.setHorizontalGroup(
             InfoCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(InfoCarrosLayout.createSequentialGroup()
+                .addGroup(InfoCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InfoCarrosLayout.createSequentialGroup()
+                        .addGap(253, 253, 253)
+                        .addComponent(JB_VerCarro))
+                    .addGroup(InfoCarrosLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         InfoCarrosLayout.setVerticalGroup(
             InfoCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout CrearCarro13Layout = new javax.swing.GroupLayout(CrearCarro13.getContentPane());
-        CrearCarro13.getContentPane().setLayout(CrearCarro13Layout);
-        CrearCarro13Layout.setHorizontalGroup(
-            CrearCarro13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        CrearCarro13Layout.setVerticalGroup(
-            CrearCarro13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InfoCarrosLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(JB_VerCarro)
+                .addGap(73, 73, 73))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1188,22 +1234,21 @@ public class Login extends javax.swing.JFrame {
                 }
             }
              Autos a = lista_carro.get(num);
+            
          //JOptionPane.showMessageDialog(this, "Carro Agregado");
-        Cliente cl = new Cliente(Id, nombre, apellido, nacio, lugar, puesto, din);
-        int costo_auto = (int)a.getPrecio(); 
-        double pisto_cliente = cl.getDinero_act(); 
-        double total = pisto_cliente - costo_auto; 
-        cl.setDinero_act(total);
-        cl.setVIN(a);
+        Cliente cl = new Cliente(Id, nombre, apellido, nacio, lugar, puesto, din);      
+        //cl.setVIN(a);
          lista_cliente.add(cl);
+            System.out.println(cl.getNombre());
             JOptionPane.showMessageDialog(this, "Agregado Cliente");
-        DefaultComboBoxModel model_cliente = (DefaultComboBoxModel)JCB_Clientes.getModel(); 
+        /*DefaultComboBoxModel model_cliente = (DefaultComboBoxModel)JCB_Clientes.getModel(); 
         model_cliente.addElement(cl.getNombre());
+        JCB_Clientes.setModel(model_cliente);*/
         
           
-        lista_cliente.add(cl); 
+       
         } catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Ocurrio un Error");
+            JOptionPane.showMessageDialog(this,e);
         }
     }//GEN-LAST:event_JB_CrearClienteActionPerformed
 
@@ -1267,7 +1312,7 @@ public class Login extends javax.swing.JFrame {
         String info = " "; 
         for (int i = 0; i < lista_cliente.size(); i++) {
             Cliente a = lista_cliente.get(i); 
-            info = info + i+") "+ a.getNombre()+" ,"+a.getApellido()+" ,"+ a.getID()+" ,"+a.getNacionalidad()+" ,"+a.getDinero_act()+" ,"+a.getVIN().get(0)+"\n";
+            info = info + i+") "+ a.getNombre()+" ,"+a.getApellido()+" ,"+ a.getID()+" ,"+a.getNacionalidad()+" ,"+a.getDinero_act()+"\n";
           //  System.out.println("");
         }
         JTA_Cliente.setText(info);
@@ -1301,6 +1346,49 @@ public class Login extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_JB_GuardarClienteMouseClicked
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        CrearC();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+      ModificarEliminarC();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+      ListarC();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        InfoC();
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        InfoA();
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        Reporte();
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void JB_VerCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_VerCarroActionPerformed
+               File fl = null; 
+        FileReader fr = null; 
+        BufferedReader br = null; 
+        Scanner sc = null; 
+        try{
+            fl = new File("./Registro Autos.txt");
+            sc = new Scanner(fl);
+            while(sc.hasNext()){
+                String siguiente = sc.nextLine();
+                System.out.println(siguiente);
+                JTA_CarroVer.setText(siguiente);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "ERROR");
+        }
+sc.close();
+    }//GEN-LAST:event_JB_VerCarroActionPerformed
 
     public boolean Validate() {
 
@@ -1474,29 +1562,24 @@ public class Login extends javax.swing.JFrame {
     }//fin del llamado del JDialog
     
     public void CrearC() {
-        Principal.pack();
+        CrearClientes.pack();
         //NORMAL.setModal(true);
-        Principal.setLocationRelativeTo(this);
-        Principal.setVisible(true);
+        CrearClientes.setLocationRelativeTo(this);
+        CrearClientes.setVisible(true);
     }//fin del llamado del JDialog
-    public void ModificarC() {
-        Principal.pack();
+    public void ModificarEliminarC() {
+        ModificarEliminarClientes.pack();
         //NORMAL.setModal(true);
-        Principal.setLocationRelativeTo(this);
-        Principal.setVisible(true);
+        ModificarEliminarClientes.setLocationRelativeTo(this);
+        ModificarEliminarClientes.setVisible(true);
     }//fin del llamado del JDialog
     public void ListarC() {
-        Principal.pack();
+        ListarClientes.pack();
         //NORMAL.setModal(true);
-        Principal.setLocationRelativeTo(this);
-        Principal.setVisible(true);
+        ListarClientes.setLocationRelativeTo(this);
+        ListarClientes.setVisible(true);
     }//fin del llamado del JDialog
-    public void EliminarC() {
-        Principal.pack();
-        //NORMAL.setModal(true);
-        Principal.setLocationRelativeTo(this);
-        Principal.setVisible(true);
-    }//fin del llamado del JDialog
+   
     public void CrearA() {
         CrearCarro.pack();
         CrearCarro.setLocationRelativeTo(this);
@@ -1522,28 +1605,28 @@ public class Login extends javax.swing.JFrame {
         Principal.setVisible(true);
     }//fin del llamado del JDialog
     public void VerA() {
-        Principal.pack();
+        InfoCarros.pack();
         //NORMAL.setModal(true);
-        Principal.setLocationRelativeTo(this);
-        Principal.setVisible(true);
+        InfoCarros.setLocationRelativeTo(this);
+        InfoCarros.setVisible(true);
     }//fin del llamado del JDialog
     public void Reporte() {
-        Principal.pack();
+        Reporte.pack();
         //NORMAL.setModal(true);
-        Principal.setLocationRelativeTo(this);
-        Principal.setVisible(true);
+        Reporte.setLocationRelativeTo(this);
+        Reporte.setVisible(true);
     }//fin del llamado del JDialog
     public void InfoA() {
-        Principal.pack();
+        InfoCarros.pack();
         //NORMAL.setModal(true);
-        Principal.setLocationRelativeTo(this);
-        Principal.setVisible(true);
+        InfoCarros.setLocationRelativeTo(this);
+        InfoCarros.setVisible(true);
     }//fin del llamado del JDialog
     public void InfoC() {
-        Principal.pack();
+        InfoClientes.pack();
         //NORMAL.setModal(true);
-        Principal.setLocationRelativeTo(this);
-        Principal.setVisible(true);
+        InfoClientes.setLocationRelativeTo(this);
+        InfoClientes.setVisible(true);
     }//fin del llamado del JDialog
     
     
@@ -1584,7 +1667,6 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog ComprarCarro;
     private javax.swing.JDialog CrearCarro;
-    private javax.swing.JDialog CrearCarro13;
     private javax.swing.JDialog CrearClientes;
     private javax.swing.JDialog InfoCarros;
     private javax.swing.JDialog InfoClientes;
@@ -1601,12 +1683,14 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton JB_ModifcarCarro;
     private javax.swing.JToggleButton JB_RegisUsuario1;
     private javax.swing.JToggleButton JB_Salir1;
+    private javax.swing.JButton JB_VerCarro;
     private javax.swing.JComboBox<String> JCB_Auto;
     private javax.swing.JComboBox<String> JCB_Clientes;
     private javax.swing.JComboBox<String> JCB_VinCli;
     private javax.swing.JMenu JM_Admin;
     private javax.swing.JPasswordField JPF_Pass;
     private javax.swing.JTextArea JTA_Auto;
+    private javax.swing.JTextArea JTA_CarroVer;
     private javax.swing.JTextArea JTA_Cliente;
     private javax.swing.JTextField JTF_Apellido;
     private javax.swing.JTextField JTF_ApellidoMod;
@@ -1699,6 +1783,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
     int numero = 0;
    

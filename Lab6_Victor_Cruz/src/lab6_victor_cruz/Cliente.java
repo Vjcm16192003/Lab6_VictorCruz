@@ -15,8 +15,8 @@ public class Cliente {
     private int ID;
     private String Nombre,Apellido,nacionalidad,lugar_trabajo,puesto_trabajo,username,clave;
     private Double dinero_act;
-    private ArrayList <Autos> VIN;
-
+    private ArrayList <Autos> VIN = new ArrayList();
+   
     public Cliente() {
     }
 
